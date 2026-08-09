@@ -1,6 +1,7 @@
 /* ==========================================================================
    HUT RI KE-81 WEB UNDANGAN STYLESHEET
    Design Theme: Merah Putih & Emas Premium
+   Fully Responsive for All Devices (Mobile, Tablet, Desktop)
    ========================================================================== */
 
 :root {
@@ -64,8 +65,8 @@ body {
   top: 0;
   bottom: 0;
   height: 100vh;
-  width: 55px;
-  z-index: 880; /* Terlihat di sisi layar sepanjang scroll */
+  width: 50px;
+  z-index: 880;
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -74,12 +75,12 @@ body {
 }
 
 .long-umbul-left {
-  left: 6px;
+  left: 4px;
   animation: longUmbulWaveLeft 4.5s ease-in-out infinite alternate;
 }
 
 .long-umbul-right {
-  right: 6px;
+  right: 4px;
   transform: scaleX(-1);
   animation: longUmbulWaveRight 4.5s ease-in-out infinite alternate;
 }
@@ -100,7 +101,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 6px;
+  width: 5px;
   background: linear-gradient(90deg, #D4AF37, #FFD700, #996515);
   border-radius: 3px;
   box-shadow: 0 0 8px rgba(0,0,0,0.6);
@@ -110,14 +111,14 @@ body {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  width: 44px;
+  width: 38px;
   position: relative;
-  left: 6px;
+  left: 5px;
 }
 
 .seg {
-  width: 42px;
-  height: 60px;
+  width: 36px;
+  height: 55px;
   clip-path: polygon(0 0, 100% 15%, 100% 85%, 0 100%);
   margin-bottom: -5px;
   box-shadow: 3px 3px 6px rgba(0,0,0,0.4);
@@ -132,8 +133,8 @@ body {
 }
 
 .seg-tail {
-  width: 42px;
-  height: 80px;
+  width: 36px;
+  height: 75px;
   background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%);
   clip-path: polygon(0 0, 100% 15%, 50% 100%, 0 85%);
 }
@@ -195,7 +196,7 @@ body {
 }
 
 .cover-content {
-  background: rgba(20, 5, 10, 0.82);
+  background: rgba(20, 5, 10, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 2px solid rgba(245, 158, 11, 0.5);
@@ -221,15 +222,15 @@ body {
 .flag-red { flex: 1; background: var(--primary-red); }
 .flag-white { flex: 1; background: var(--pure-white); }
 
-/* EMBLEM GARUDA DALAM LINGKARAN EMAS PRESISI (OBJECT-FIT CONTAIN) */
+/* EMBLEM GARUDA DALAM LINGKARAN EMAS PRESISI */
 .garuda-circle-badge {
   width: 145px;
   height: 145px;
   margin: 0 auto 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #4C0519 0%, #1c0007 100%);
+  background: #000000;
   border: 3.5px solid var(--gold);
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), inset 0 0 15px rgba(245, 158, 11, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,7 +243,8 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+  border-radius: 50%;
+  display: block;
 }
 
 .hero-garuda-circle-badge {
@@ -250,9 +252,9 @@ body {
   height: 165px;
   margin: 0 auto 20px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #4C0519 0%, #1c0007 100%);
+  background: #000000;
   border: 4px solid var(--gold);
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.9), inset 0 0 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.9), inset 0 0 20px rgba(245, 158, 11, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -265,16 +267,17 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+  border-radius: 50%;
+  display: block;
 }
 
 .nav-garuda-circle-img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1.5px solid var(--gold);
   object-fit: contain;
-  background: #1c0007;
+  background: #000000;
   padding: 2px;
 }
 
@@ -423,7 +426,7 @@ body {
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -566,7 +569,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 20px 60px;
+  padding: 120px 60px 60px;
   text-align: center;
   color: var(--pure-white);
 }
@@ -584,6 +587,7 @@ body {
   position: relative;
   z-index: 2;
   max-width: 850px;
+  width: 100%;
 }
 
 .badge-81 {
@@ -621,6 +625,7 @@ body {
   background: linear-gradient(180deg, #FFFFFF 30%, #FFD1D1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  word-break: break-word;
 }
 
 .hero-subtitle {
@@ -651,6 +656,7 @@ body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 60px;
 }
 
 .section-header {
@@ -1229,30 +1235,64 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
+   RESPONSIVE BREAKPOINTS (MOBILE, TABLET, DESKTOP)
    ========================================================================== */
 @media (max-width: 992px) {
-  .hero-title { font-size: 2.8rem; }
+  .hero-title { font-size: 2.7rem; }
   .guestbook-container { grid-template-columns: 1fr; }
   .renungan-grid { grid-template-columns: 1fr; }
   .pahlawan-grid { grid-template-columns: repeat(2, 1fr); }
+  .container { padding-left: 50px; padding-right: 50px; }
+  .hero-section { padding-left: 50px; padding-right: 50px; }
 }
 
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.2rem; }
-  .cover-title { font-size: 1.8rem; }
+  .hero-section { padding: 110px 42px 50px; }
+  .hero-title { font-size: 2.1rem; }
+  .hero-subtitle { font-size: 1.05rem; }
+  .cover-content { padding: 35px 22px; max-width: 92%; }
+  .cover-title { font-size: 1.75rem; }
   .pahlawan-grid { grid-template-columns: 1fr; }
   
-  .long-umbul-side {
-    width: 32px;
+  .container {
+    padding-left: 45px;
+    padding-right: 45px;
   }
+  
+  .parchment-paper {
+    padding: 30px 20px;
+  }
+
+  .renungan-card {
+    padding: 25px 20px;
+  }
+
+  .guestbook-form {
+    padding: 25px 20px;
+  }
+
+  .quiz-card {
+    padding: 30px 18px;
+  }
+
+  .long-umbul-side {
+    width: 28px;
+  }
+  .long-umbul-left { left: 2px; }
+  .long-umbul-right { right: 2px; }
+  
   .flag-segments-container {
-    width: 26px;
+    width: 22px;
     margin-top: 45px;
+    left: 3px;
   }
   .seg, .seg-tail {
-    width: 25px;
-    height: 42px;
+    width: 20px;
+    height: 38px;
+  }
+
+  .nav-container {
+    padding: 0 45px;
   }
 
   .nav-links {
@@ -1261,9 +1301,9 @@ body {
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(15, 23, 42, 0.96);
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 45px;
     gap: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -1275,4 +1315,49 @@ body {
   .mobile-menu-btn {
     display: block;
   }
+
+  .floating-audio-player {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .audio-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section { padding: 100px 35px 40px; }
+  .hero-title { font-size: 1.7rem; }
+  .hero-subtitle { font-size: 0.95rem; }
+  
+  .container {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .section {
+    padding: 60px 5px;
+  }
+
+  .parchment-paper {
+    padding: 22px 14px;
+  }
+  .proklamasi-title { font-size: 1.4rem; letter-spacing: 2px; }
+  .proklamasi-text { font-size: 0.92rem; line-height: 1.6; }
+
+  .countdown-grid { gap: 10px; }
+  .countdown-item { min-width: 65px; padding: 12px 8px; }
+  .countdown-item .number { font-size: 1.6rem; }
+  .countdown-item .label { font-size: 0.65rem; }
+
+  .long-umbul-side { width: 18px; }
+  .long-umbul-left { left: 0px; }
+  .long-umbul-right { right: 0px; }
+  .flag-segments-container { width: 14px; left: 2px; margin-top: 40px; }
+  .seg, .seg-tail { width: 14px; height: 28px; }
+
+  .hero-cta { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; }
 }
