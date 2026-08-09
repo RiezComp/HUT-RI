@@ -172,7 +172,7 @@ body {
 }
 
 /* ==========================================================================
-   COVER / SPLASH MODAL (AUTOPLAY ENABLER)
+   COVER / SPLASH MODAL (AUTOPLAY ENABLER - RESPONSIVE FOR ALL SCREEN HEIGHTS)
    ========================================================================== */
 .cover-modal {
   position: fixed;
@@ -180,13 +180,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  height: 100vh;
+  height: 100dvh;
   background: linear-gradient(180deg, #9F1239 0%, #4C0519 70%, #1c0007 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10000;
   transition: opacity 0.6s ease, visibility 0.6s ease;
-  padding: 20px;
+  padding: 15px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cover-modal.fade-out {
@@ -195,19 +199,32 @@ body {
 }
 
 .cover-content {
-  background: rgba(20, 5, 10, 0.92);
+  background: rgba(20, 5, 10, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 2px solid rgba(245, 158, 11, 0.5);
   border-radius: var(--radius-xl);
-  padding: 40px 30px;
-  max-width: 520px;
+  padding: 32px 24px;
+  max-width: 500px;
   width: 100%;
+  max-height: 94dvh;
+  overflow-y: auto;
+  margin: auto;
   text-align: center;
   color: var(--pure-white);
   box-shadow: 0 25px 50px -12px rgba(225, 29, 72, 0.4);
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cover-content::-webkit-scrollbar {
+  width: 4px;
+}
+.cover-content::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 2px;
 }
 
 .flag-ribbon {
@@ -223,9 +240,9 @@ body {
 
 /* EMBLEM GARUDA EMBLEM (PRESISI GESER SEDIKIT KE BAWAH AGAR SAYAP PAS UTUH) */
 .garuda-circle-badge {
-  width: 185px;
-  height: 185px;
-  margin: 0 auto 18px;
+  width: 165px;
+  height: 165px;
+  margin: 0 auto 16px;
   border-radius: 50%;
   background: #170006;
   border: 4px solid var(--gold);
@@ -233,9 +250,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px;
+  padding: 16px;
   overflow: hidden;
   position: relative;
+  flex-shrink: 0;
   animation: floatGaruda 3.5s ease-in-out infinite;
 }
 
@@ -1343,16 +1361,56 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px), (max-height: 720px) {
+  .cover-content {
+    padding: 20px 16px;
+    max-height: 96dvh;
+  }
+
+  .cover-title {
+    font-size: 1.55rem;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .sub-heading {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .garuda-circle-badge {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 10px;
+    padding: 10px;
+  }
+
+  .date-badge {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .cover-desc {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary {
+    padding: 11px 22px;
+    font-size: 0.92rem;
+  }
+
+  .autoplay-note {
+    font-size: 0.72rem;
+    margin-top: 8px;
+  }
+
   .hero-section { padding: 100px 35px 40px; }
   .hero-title { font-size: 1.7rem; }
   .hero-subtitle { font-size: 0.95rem; }
-  
-  .garuda-circle-badge {
-    width: 135px;
-    height: 135px;
-    padding: 10px;
-  }
 
   .hero-garuda-circle-badge {
     width: 160px;
@@ -1389,3 +1447,52 @@ body {
   .hero-cta { flex-direction: column; width: 100%; }
   .btn-primary, .btn-secondary { width: 100%; text-align: center; }
 }
+
+/* ==========================================================================
+   ANDROID STOCK BROWSER COMPATIBILITY FIXES (Xiaomi Mi Browser, OPPO, Samsung, Vivo)
+   ========================================================================== */
+
+/* Touch Action & Tap Highlight Removal for Stock WebViews */
+button, input, textarea, a, .option-btn, .btn-primary, .btn-secondary, .audio-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Prevent Font Autoscaling & Layout Shift on Stock Mobile Browsers */
+html, body {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback background for devices/browsers where backdrop-filter is disabled */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .cover-content {
+    background: #170006 !important;
+  }
+  .renungan-card, .pahlawan-card, .guestbook-form, .quiz-card, .countdown-item {
+    background: #190108 !important;
+  }
+  .navbar {
+    background: #0f172a !important;
+  }
+}
+
+/* Notch & Camera Punch-Hole Safe Area Padding for Android Handsets */
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(35px, env(safe-area-inset-left));
+    padding-right: max(35px, env(safe-area-inset-right));
+  }
+  .hero-section {
+    padding-left: max(35px, env(safe-area-inset-left));
+    padding-right: max(35px, env(safe-area-inset-right));
+  }
+}
+
