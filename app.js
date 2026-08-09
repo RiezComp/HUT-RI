@@ -57,42 +57,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Pre-unlock audio on any initial user touch/click anywhere on cover modal
-  function unlockAudioEngine() {
-    if (bgMusic) {
-      try {
-        bgMusic.load();
-      } catch(e) {}
-    }
+  let globalAudio = document.getElementById('bg-music');
+  if (!globalAudio) {
+    globalAudio = new Audio('assets/audio/indonesia-raya.mp3');
+    globalAudio.loop = true;
   }
 
-  document.addEventListener('touchstart', unlockAudioEngine, { once: true, passive: true });
-  document.addEventListener('click', unlockAudioEngine, { once: true, passive: true });
-
   function startMusic() {
-    if (!bgMusic) return;
-    bgMusic.volume = 0.7;
-    bgMusic.muted = false;
+    if (!globalAudio) {
+      globalAudio = new Audio('assets/audio/indonesia-raya.mp3');
+      globalAudio.loop = true;
+    }
 
+    globalAudio.volume = 0.7;
+    
     try {
-      const playPromise = bgMusic.play();
+      const playPromise = globalAudio.play();
 
       if (playPromise !== undefined) {
         playPromise.then(() => {
+          console.log('Indonesia Raya playing successfully!');
           isPlaying = true;
           updateAudioButtonState();
         }).catch(error => {
-          console.warn('Audio playback prevented or file missing, using synth fallback:', error);
-          playSynthAnthem();
-          isPlaying = true;
-          updateAudioButtonState();
+          console.warn('HTML5 Audio play prevented, trying dynamic Audio instance:', error);
+          const fallbackAudio = new Audio('assets/audio/indonesia-raya.mp3');
+          fallbackAudio.loop = true;
+          fallbackAudio.volume = 0.7;
+          fallbackAudio.play().then(() => {
+            globalAudio = fallbackAudio;
+            isPlaying = true;
+            updateAudioButtonState();
+          }).catch(err2 => {
+            console.warn('Fallback Audio failed, playing synth anthem:', err2);
+            playSynthAnthem();
+            isPlaying = true;
+            updateAudioButtonState();
+          });
         });
       } else {
         isPlaying = true;
         updateAudioButtonState();
       }
     } catch (e) {
-      console.warn('Direct play exception:', e);
+      console.warn('Audio exception, using synth:', e);
       playSynthAnthem();
       isPlaying = true;
       updateAudioButtonState();
@@ -101,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function toggleMusic() {
     if (isPlaying) {
-      if (bgMusic) bgMusic.pause();
+      if (globalAudio) globalAudio.pause();
       if (audioContext) audioContext.suspend();
       isPlaying = false;
     } else {
