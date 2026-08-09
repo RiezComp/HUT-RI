@@ -35,11 +35,7 @@
 <body>
 
   <!-- Audio Element for Indonesia Raya -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="assets/audio/indonesia-raya.mp3" type="audio/mpeg">
-    <source src="assets/audio/indonesia-raya.ogg" type="audio/ogg">
-    Browser Anda tidak mendukung elemen audio.
-  </audio>
+  <audio id="bg-music" src="assets/audio/indonesia-raya.mp3" loop preload="auto" playsinline></audio>
 
   <!-- Canvas for Fireworks -->
   <canvas id="fireworks-canvas"></canvas>
@@ -57,7 +53,7 @@
         <img src="assets/images/garuda-gold.png" alt="Lambang Garuda Pancasila Transparan">
       </div>
 
-      <span class="sub-heading">UNDANGAN</span>
+      <span class="sub-heading">UNDANGAN RESMI PERAYAAN</span>
       <h1 class="cover-title">HUT REPUBLIK INDONESIA <br><span class="highlight-gold">KE-81</span></h1>
       
       <div class="date-badge">
@@ -70,7 +66,7 @@
       </p>
 
       <button id="btn-open-invitation" class="btn-primary pulse-btn">
-        <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan
+        <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan & Putar Lagu
       </button>
 
       <span class="autoplay-note"><i class="fa-solid fa-music"></i> Lagu kebangsaan "Indonesia Raya" akan otomatis diputar</span>
@@ -163,7 +159,7 @@
           <span></span><span></span><span></span>
         </span>
       </button>
-      <div class="audio-tooltip">Indonesia Raya</div>
+      <div class="audio-tooltip">Indonesia Raya 🇮🇩</div>
     </div>
 
     <!-- Hero Section -->
@@ -471,7 +467,8 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2026 Peringatan HUT RI ke-81. Dibuat dengan semangat Kemerdekaan 🇮🇩</p>
+          <p>&copy; 2026 Undangan Peringatan HUT RI ke-81. Dibuat dengan semangat Kemerdekaan 🇮🇩</p>
+          <p class="github-note">Siap di-deploy pada <strong>GitHub Pages</strong></p>
         </div>
       </div>
     </footer>
