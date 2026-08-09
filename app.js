@@ -57,21 +57,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Pre-unlock audio on any initial user touch/click anywhere on cover modal
+  function unlockAudioEngine() {
+    if (bgMusic) {
+      try {
+        bgMusic.load();
+      } catch(e) {}
+    }
+  }
+
+  document.addEventListener('touchstart', unlockAudioEngine, { once: true, passive: true });
+  document.addEventListener('click', unlockAudioEngine, { once: true, passive: true });
+
   function startMusic() {
     if (!bgMusic) return;
     bgMusic.volume = 0.7;
-    const playPromise = bgMusic.play();
+    bgMusic.muted = false;
 
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
+    try {
+      const playPromise = bgMusic.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlaying = true;
+          updateAudioButtonState();
+        }).catch(error => {
+          console.warn('Audio playback prevented or file missing, using synth fallback:', error);
+          playSynthAnthem();
+          isPlaying = true;
+          updateAudioButtonState();
+        });
+      } else {
         isPlaying = true;
         updateAudioButtonState();
-      }).catch(error => {
-        console.warn('Audio playback prevented or file missing, using synth fallback:', error);
-        playSynthAnthem();
-        isPlaying = true;
-        updateAudioButtonState();
-      });
+      }
+    } catch (e) {
+      console.warn('Direct play exception:', e);
+      playSynthAnthem();
+      isPlaying = true;
+      updateAudioButtonState();
     }
   }
 
@@ -97,17 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Open Invitation Event (Enhanced for Android Stock Browsers: Mi Browser, Samsung, OPPO, Vivo)
+  // Open Invitation Event (Instant Audio Unlock on User Click / Touch)
   let isInvitationOpened = false;
 
   function handleOpenInvitation(e) {
     if (isInvitationOpened) return;
     isInvitationOpened = true;
-
-    if (e && e.type === 'touchstart') {
-      // Prevent delayed click dispatch on stock mobile WebViews
-      if (e.cancelable) e.preventDefault();
-    }
 
     startMusic();
 
@@ -130,8 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnOpenInvitation) {
     btnOpenInvitation.addEventListener('click', handleOpenInvitation);
-    btnOpenInvitation.addEventListener('touchstart', handleOpenInvitation, { passive: false });
-    btnOpenInvitation.addEventListener('pointerdown', handleOpenInvitation);
+    btnOpenInvitation.addEventListener('touchend', handleOpenInvitation);
   }
 
   // Audio Toggle Button Click
