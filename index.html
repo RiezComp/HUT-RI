@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Undangan Perayaan HUT RI ke-81 (17 Agustus 2026)">
+  <meta name="description" content="Mari bergabung merayakan Hari Kemerdekaan Republik Indonesia ke-81 pada 17 Agustus 2026. Nusantara Baru, Indonesia Maju!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com">
+  <meta property="og:title" content="Undangan Perayaan HUT RI ke-81 — 17 Agustus 2026">
+  <meta property="og:description" content="Dirgahayu Republik Indonesia ke-81. Klik untuk membaca Teks Proklamasi, puisi renungan kebangkitan, galeri pahlawan, kuis trivia, dan kirim ucapan doa Kemerdekaan!">
+  <meta property="og:image" content="assets/images/hero-banner.jpg">
+
+  <title>Undangan Peringatan HUT RI ke-81 — 17 Agustus 2026</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Audio Element for Indonesia Raya -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="assets/audio/indonesia-raya.mp3" type="audio/mpeg">
+    <source src="assets/audio/indonesia-raya.ogg" type="audio/ogg">
+    Browser Anda tidak mendukung elemen audio.
+  </audio>
+
+  <!-- Canvas for Fireworks -->
+  <canvas id="fireworks-canvas"></canvas>
+
+  <!-- Splash Screen / Cover Modal (Required for Autoplay Policy) -->
+  <div id="cover-modal" class="cover-modal">
+    <div class="cover-content">
+      <div class="flag-ribbon">
+        <div class="flag-red"></div>
+        <div class="flag-white"></div>
+      </div>
+      
+      <!-- Emblem Garuda Dalam Lingkaran Emas Presisi -->
+      <div class="garuda-circle-badge">
+        <img src="assets/images/garuda-gold.jpg" alt="Lambang Garuda Pancasila">
+      </div>
+
+      <span class="sub-heading">UNDANGAN RESMI PERAYAAN</span>
+      <h1 class="cover-title">HUT REPUBLIK INDONESIA <br><span class="highlight-gold">KE-81</span></h1>
+      
+      <div class="date-badge">
+        <i class="fa-solid fa-flag"></i> 17 AGUSTUS 2026
+      </div>
+      
+      <p class="cover-desc">
+        Kepada Yth. Bapak/Ibu/Saudara/i,<br>
+        Anda diundang untuk merayakan Hari Kemerdekaan Republik Indonesia!
+      </p>
+
+      <button id="btn-open-invitation" class="btn-primary pulse-btn">
+        <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan & Putar Lagu
+      </button>
+
+      <span class="autoplay-note"><i class="fa-solid fa-music"></i> Lagu kebangsaan "Indonesia Raya" akan otomatis diputar</span>
+    </div>
+  </div>
+
+  <!-- Main Web Content (Initially Scrollable after Cover Open) -->
+  <div id="main-content" class="main-content hidden-content">
+    
+    <!-- Top Bunting Flags Garland (Bendera Segitiga Merah Putih Atas) -->
+    <div class="top-bunting-garland">
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+      <div class="bunting-flag"></div><div class="bunting-flag"></div><div class="bunting-flag"></div>
+    </div>
+
+    <!-- Long Vertical Umbul-Umbul Bendera (Panjang Menjuntai di Sisi Kiri & Kanan, Tetap Ada Saat Scroll) -->
+    <div class="long-umbul-side long-umbul-left">
+      <div class="bamboo-pole"></div>
+      <div class="flag-segments-container">
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg-tail red"></div>
+      </div>
+    </div>
+
+    <div class="long-umbul-side long-umbul-right">
+      <div class="bamboo-pole"></div>
+      <div class="flag-segments-container">
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg red"></div>
+        <div class="seg white"></div>
+        <div class="seg-tail red"></div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <img src="assets/images/garuda-gold.jpg" alt="Garuda Logo" class="nav-garuda-circle-img">
+          HUT RI 81
+        </a>
+        <ul class="nav-links">
+          <li><a href="#hero"><i class="fa-solid fa-house"></i> Beranda</a></li>
+          <li><a href="#countdown"><i class="fa-solid fa-clock"></i> Countdown</a></li>
+          <li><a href="#proklamasi"><i class="fa-solid fa-scroll"></i> Proklamasi</a></li>
+          <li><a href="#renungan"><i class="fa-solid fa-feather-pointed"></i> Renungan</a></li>
+          <li><a href="#pahlawan"><i class="fa-solid fa-users"></i> Pahlawan</a></li>
+          <li><a href="#guestbook"><i class="fa-solid fa-comment-dots"></i> Ucapan & Doa</a></li>
+          <li><a href="#quiz"><i class="fa-solid fa-gamepad"></i> Kuis</a></li>
+        </ul>
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Floating Audio Control -->
+    <div class="floating-audio-player">
+      <button id="audio-toggle-btn" class="audio-btn playing" title="Putar / Hentikan Lagu">
+        <div class="vinyl-disc">
+          <i class="fa-solid fa-compact-disc"></i>
+        </div>
+        <span class="sound-wave">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+      <div class="audio-tooltip">Indonesia Raya 🇮🇩</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <!-- Hero Garuda Gold Emblem dalam Lingkaran Presisi -->
+        <div class="hero-garuda-circle-badge">
+          <img src="assets/images/garuda-gold.jpg" alt="Lambang Garuda Pancasila">
+        </div>
+
+        <div class="badge-81">
+          <span class="badge-year">1945 - 2026</span>
+          <span class="badge-text">81 TAHUN INDONESIA MERDEKA</span>
+        </div>
+        
+        <h1 class="hero-title">
+          DIRGAHAYU REPUBLIK INDONESIA
+        </h1>
+        <p class="hero-subtitle">
+          "Nusantara Baru, Indonesia Maju — Bersatu Dalam Keberagaman, Tangguh Dalam Kemajuan"
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta">
+          <a href="#renungan" class="btn-primary"><i class="fa-solid fa-feather-pointed"></i> Renungan Kebangsaan</a>
+          <a href="#guestbook" class="btn-secondary"><i class="fa-solid fa-pen-nib"></i> Kirim Doa</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN SECTION -->
+    <section id="countdown" class="section countdown-section">
+      <div class="container text-center">
+        <div class="section-header">
+          <span class="section-subtitle">MENUJU DETIK-DETIK PROKLAMASI</span>
+          <h2 class="section-title">Hitung Mundur 17 Agustus 2026</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="countdown-grid">
+          <div class="countdown-item">
+            <span id="days" class="number">00</span>
+            <span class="label">HARI</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hours" class="number">00</span>
+            <span class="label">JAM</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes" class="number">00</span>
+            <span class="label">MENIT</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds" class="number">00</span>
+            <span class="label">DETIK</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEKS PROKLAMASI SECTION -->
+    <section id="proklamasi" class="section proklamasi-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">DOKUMEN BERSEJARAH</span>
+          <h2 class="section-title">Naskah Teks Proklamasi 1945</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="proklamasi-card">
+          <div class="parchment-paper">
+            <div class="parchment-header">
+              <span class="proklamasi-title">PROKLAMASI</span>
+            </div>
+            
+            <p class="proklamasi-text">
+              Kami bangsa Indonesia dengan ini menjatakan Kemerdekaan Indonesia.
+            </p>
+            
+            <p class="proklamasi-text">
+              Hal-hal jang mengenai pemindahan kekoeasaan d.l.l., diselenggarakan dengan tjara saksama dan dalam tempo jang sesingkat-singkatnja.
+            </p>
+
+            <div class="proklamasi-footer">
+              <span class="proklamasi-date">Djakarta, hari 17 boelan 8 tahoen '05</span>
+              <span class="proklamasi-sign">Atas nama bangsa Indonesia,<br><strong>Soekarno - Hatta.</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION RENUNGAN & GELORA KEMERDEKAAN (PUISI & KATA INSPIRASI RELEVAN) -->
+    <section id="renungan" class="section renungan-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">GELORA PERSATUAN BANGSA</span>
+          <h2 class="section-title">Renungan Kemerdekaan: Bangkit Bersama Untuk Indonesia</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="renungan-grid">
+          <div class="renungan-card">
+            <div class="card-badge-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+            <h3>Bangkit Di Tengah Badai</h3>
+            <p class="poetry-text">
+              "Besarnya sebuah bangsa tidak diukur saat keadaan tenang, melainkan saat kita berdiri tegak dan bahu-membahu di tengah badai tantangan. Indonesia adalah rumah tempat darah kita mengalir dan harapan digantungkan. Mari buang keraguan, rapatkan barisan, dan bangun kembali Indonesia yang lebih solid, adil, dan makmur!"
+            </p>
+            <span class="quote-tag">#BersatuTangguh #IndonesiaSolid</span>
+          </div>
+
+          <div class="renungan-card highlight-card">
+            <div class="card-badge-icon"><i class="fa-solid fa-flag"></i></div>
+            <h3>Puisi Merah Putih</h3>
+            <p class="poetry-text font-serif">
+              Merah adalah darah pejuang yang tak boleh sia-sia,<br>
+              Putih adalah sucinya tekad anak negeri yang berkarya.<br>
+              Di atas tanah yang sama kita berpijak,<br>
+              Di bawah langit Nusantara kita melangkah.<br>
+              Kemerdekaan bukan sekadar sejarah,<br>
+              Melainkan janji untuk saling menguatkan dan menyejahterakan sesama!
+            </p>
+            <span class="quote-tag">#MerahPutihDiDada #JiwaMerdeka</span>
+          </div>
+
+          <div class="renungan-card">
+            <div class="card-badge-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+            <h3>Gotong Royong Adalah Kunci</h3>
+            <p class="poetry-text">
+              "Tak ada beban yang terlalu berat jika dipikul bersama. Kemakmuran Indonesia tidak datang dari keajaiban, melainkan dari kerja keras, kejujuran, dan rasa kepedulian dari Sabang sampai Merauke. Mari kembalikan semangat gotong royong untuk kejayaan negeri tercinta!"
+            </p>
+            <span class="quote-tag">#GotongRoyong #IndonesiaMakmur</span>
+          </div>
+
+          <div class="renungan-card">
+            <div class="card-badge-icon"><i class="fa-solid fa-award"></i></div>
+            <h3>Amanah Masa Depan</h3>
+            <p class="poetry-text">
+              "Jika dahulu para pahlawan membebaskan negeri dengan bambu runcing, kini tugas kita adalah membebaskan masyarakat dari perpecahan dan ketimpangan melalui karya nyata, integritas, serta rasa persaudaraan yang tak tergoyahkan!"
+            </p>
+            <span class="quote-tag">#KaryaUntukNegeri #HUTRI81</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERI TOKOH PAHLAWAN PROKLAMASI -->
+    <section id="pahlawan" class="section pahlawan-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">TOKOH KEMERDEKAAN RI</span>
+          <h2 class="section-title">Pahlawan Proklamasi Indonesia</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="pahlawan-grid">
+          <div class="pahlawan-card">
+            <div class="pahlawan-avatar">
+              <img src="assets/images/soekarno.jpg" alt="Foto Ir. Soekarno">
+            </div>
+            <h3>Ir. Soekarno</h3>
+            <span class="pahlawan-role">Proklamator & Presiden Pertama RI</span>
+            <p>"Beri aku 10 pemuda niscaya akan kuguncangkan dunia."</p>
+          </div>
+
+          <div class="pahlawan-card">
+            <div class="pahlawan-avatar">
+              <img src="assets/images/hatta.jpg" alt="Foto Drs. Mohammad Hatta">
+            </div>
+            <h3>Drs. Mohammad Hatta</h3>
+            <span class="pahlawan-role">Proklamator & Wakil Presiden Pertama RI</span>
+            <p>"Indonesia merdeka tidak lahir begitu saja, melainkan hasil perjuangan panjang."</p>
+          </div>
+
+          <div class="pahlawan-card">
+            <div class="pahlawan-avatar">
+              <img src="assets/images/fatmawati.jpg" alt="Foto Ibu Fatmawati">
+            </div>
+            <h3>Ibu Fatmawati</h3>
+            <span class="pahlawan-role">Penjahit Bendera Pusaka Merah Putih</span>
+            <p>"Jahitan Sang Saka Merah Putih dipenuhi doa dan cinta untuk tanah air."</p>
+          </div>
+
+          <div class="pahlawan-card">
+            <div class="pahlawan-avatar">
+              <img src="assets/images/sayuti-melik.jpg" alt="Foto Sayuti Melik">
+            </div>
+            <h3>Sayuti Melik</h3>
+            <span class="pahlawan-role">Pengetik Naskah Proklamasi Kemerdekaan</span>
+            <p>"Mengetik Teks Proklamasi dengan keberanian jiwa demi lahirnya Bangsa Indonesia."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAPAN UCAPAN & DOA UNTUK INDONESIA (GUESTBOOK & UCAPAN TERBARU) -->
+    <section id="guestbook" class="section guestbook-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">PAPAN UCAPAN & DOA</span>
+          <h2 class="section-title">Kirim Doa & Harapan Untuk Indonesia</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="guestbook-container">
+          <form id="guestbook-form" class="guestbook-form">
+            <div class="form-group">
+              <label for="user-name"><i class="fa-solid fa-user"></i> Nama Lengkap / Inisial</label>
+              <input type="text" id="user-name" required placeholder="Contoh: Budi Santoso">
+            </div>
+
+            <div class="form-group">
+              <label for="user-city"><i class="fa-solid fa-city"></i> Asal Kota / Provinsi</label>
+              <input type="text" id="user-city" required placeholder="Contoh: Surabaya, Jawa Timur">
+            </div>
+
+            <div class="form-group">
+              <label for="user-message"><i class="fa-solid fa-heart"></i> Kirim Doa & Harapan untuk Indonesia</label>
+              <textarea id="user-message" rows="4" required placeholder="Tuliskan doa & ucapan Kemerdekaan RI ke-81..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-block">
+              <i class="fa-solid fa-paper-plane"></i> Kirim Doa & Ucapan
+            </button>
+          </form>
+
+          <div class="messages-list-wrapper">
+            <h3><i class="fa-solid fa-comments"></i> Ucapan & Doa Kemerdekaan Terbaru</h3>
+            <div id="messages-list" class="messages-list">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRIVIA QUIZ SECTION -->
+    <section id="quiz" class="section quiz-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">GAME INTERAKTIF</span>
+          <h2 class="section-title">Kuis Trivia Kemerdekaan</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="quiz-card">
+          <div id="quiz-intro">
+            <h3>Uji Pengetahuan Sejarah Kemerdekaan RI!</h3>
+            <p>Jawab 5 pertanyaan singkat seputar Kemerdekaan Indonesia dan lihat skor Anda!</p>
+            <button id="btn-start-quiz" class="btn-primary" type="button">
+              <i class="fa-solid fa-circle-play"></i> Mulai Kuis
+            </button>
+          </div>
+
+          <div id="quiz-body" class="quiz-body hidden-element">
+            <div class="quiz-header">
+              <span id="quiz-progress">Pertanyaan 1 dari 5</span>
+              <span id="quiz-score">Skor: 0</span>
+            </div>
+
+            <h4 id="quiz-question" class="quiz-question">Pertanyaan kuis akan tampil di sini...</h4>
+
+            <div id="quiz-options" class="quiz-options">
+              <!-- Options loaded via JS -->
+            </div>
+          </div>
+
+          <div id="quiz-result" class="quiz-result hidden-element">
+            <div class="result-icon"><i class="fa-solid fa-award"></i></div>
+            <h3>Selamat! Anda Menyelesaikan Kuis!</h3>
+            <p id="result-text">Skor Anda: 100/100</p>
+            <button id="btn-restart-quiz" class="btn-secondary" type="button">
+              <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Share & Social Section -->
+    <section class="section share-section">
+      <div class="container text-center">
+        <h2>Sebarkan Semangat Kemerdekaan!</h2>
+        <p>Ajak teman, keluarga, dan kerabat untuk merayakan HUT RI ke-81 bersama.</p>
+        
+        <div class="share-buttons">
+          <button id="btn-copy-link" class="btn-share copy-btn" type="button">
+            <i class="fa-solid fa-copy"></i> Salin Link Undangan
+          </button>
+          <a id="btn-share-wa" href="#" target="_blank" class="btn-share wa-btn">
+            <i class="fa-brands fa-whatsapp"></i> Bagikan ke WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="quote-box">
+          <i class="fa-solid fa-quote-left"></i>
+          <p class="soekarno-quote">"Gantungkan cita-citamu setinggi langit! Jika engkau jatuh, engkau akan jatuh di antara bintang-bintang."</p>
+          <span class="quote-author">— Ir. Soekarno, Presiden Pertama Republik Indonesia</span>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Undangan Peringatan HUT RI ke-81. Dibuat dengan semangat Kemerdekaan 🇮🇩</p>
+          <p class="github-note">Siap di-deploy pada <strong>GitHub Pages</strong></p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
