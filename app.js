@@ -3,8 +3,8 @@
    Features: Autoplay Audio, Countdown, Fireworks, Global Google Sheets Guestbook & Quiz
    ========================================================================== */
 
-// 🟢 LINK DATABASE GOOGLE SHEETS (Ganti link ini dengan Web App URL Apps Script Anda jika sudah dibuat)
 const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7hl8TlARetoE8UcccyRfSkaDzeQA1thFYSqm58gmHuIxDNNMiE4-wTkxOFzT0AEtd/exec"; 
+
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('App initialization started...');
@@ -97,32 +97,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Open Invitation Event
+  // Open Invitation Event (Enhanced for Android Stock Browsers: Mi Browser, Samsung, OPPO, Vivo)
+  let isInvitationOpened = false;
+
+  function handleOpenInvitation(e) {
+    if (isInvitationOpened) return;
+    isInvitationOpened = true;
+
+    if (e && e.type === 'touchstart') {
+      // Prevent delayed click dispatch on stock mobile WebViews
+      if (e.cancelable) e.preventDefault();
+    }
+
+    startMusic();
+
+    if (coverModal) {
+      coverModal.classList.add('fade-out');
+      coverModal.style.pointerEvents = 'none';
+      setTimeout(() => {
+        coverModal.style.display = 'none';
+        if (mainContent) {
+          mainContent.classList.remove('hidden-content');
+          mainContent.style.display = 'block';
+        }
+        document.body.style.overflow = 'auto';
+      }, 600);
+    }
+
+    triggerConfetti();
+    startFireworksCanvas();
+  }
+
   if (btnOpenInvitation) {
-    btnOpenInvitation.addEventListener('click', () => {
-      startMusic();
-
-      if (coverModal) {
-        coverModal.classList.add('fade-out');
-        coverModal.style.pointerEvents = 'none';
-        setTimeout(() => {
-          coverModal.style.display = 'none';
-          if (mainContent) {
-            mainContent.classList.remove('hidden-content');
-            mainContent.style.display = 'block';
-          }
-          document.body.style.overflow = 'auto';
-        }, 600);
-      }
-
-      triggerConfetti();
-      startFireworksCanvas();
-    });
+    btnOpenInvitation.addEventListener('click', handleOpenInvitation);
+    btnOpenInvitation.addEventListener('touchstart', handleOpenInvitation, { passive: false });
+    btnOpenInvitation.addEventListener('pointerdown', handleOpenInvitation);
   }
 
   // Audio Toggle Button Click
   if (audioToggleBtn) {
     audioToggleBtn.addEventListener('click', toggleMusic);
+    audioToggleBtn.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
   }
 
   // Mobile Menu Toggle
@@ -183,7 +200,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const guestbookForm = document.getElementById('guestbook-form');
 
   const defaultMessages = [
-  
+    {
+      name: 'Budi Rahardjo',
+      city: 'Jakarta Pusat',
+      message: 'Selamat HUT RI ke-81! Semoga Indonesia semakin maju, sejahtera, dan bersatu dalam keberagaman! Merdeka! 🇮🇩',
+      time: 'Baru saja'
+    },
+    {
+      name: 'Ratna Sari',
+      city: 'Bandung, Jawa Barat',
+      message: 'Tantangan memang tidak mudah, tapi dengan gotong royong dan tekad baja, kita yakin Indonesia akan tumbuh lebih solid dan makmur!',
+      time: '12 menit yang lalu'
+    },
+    {
+      name: 'Andi Pratama',
+      city: 'Makassar, Sulsel',
+      message: 'Kemerdekaan bukan hanya warisan, tapi amanah untuk kita perjuangkan bersama demi keadilan seluruh rakyat Indonesia!',
+      time: '45 menit yang lalu'
+    },
+    {
+      name: 'Siti Aminah',
+      city: 'Surabaya, Jawa Timur',
+      message: 'Dirgahayu Republik Indonesia ke-81! Nusantara Baru, Indonesia Maju! Salam Kemerdekaan dari Jatim.',
+      time: '1 jam yang lalu'
+    },
+    {
+      name: 'Maria Latuconsina',
+      city: 'Ambon, Maluku',
+      message: 'Persatuan adalah kekuatan terbesar kita. Mari kita teruskan semangat Kemerdekaan 1945 untuk masa depan bangsa yang gemilang!',
+      time: '2 jam yang lalu'
+    },
+    {
+      name: 'Made Astawa',
+      city: 'Denpasar, Bali',
+      message: 'Semoga semangat para pahlawan selalu menjiwai generasi muda Indonesia untuk terus berkarya bagi ibu pertiwi!',
+      time: '3 jam yang lalu'
+    }
   ];
 
   async function loadMessages() {
@@ -262,20 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
       }
 
-      // Kirim ke Google Sheets jika URL diisi
-      if (GOOGLE_SHEET_SCRIPT_URL) {
-        try {
-          await fetch(GOOGLE_SHEET_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(newMessage)
-          });
-        } catch (err) {
-          console.warn('Gagal mengirim ke Google Sheets, tersimpan secara lokal:', err);
-        }
-      }
-
-      // Selalu simpan di LocalStorage sebagai fallback instant
+      // Tampilkan ucapan langsung di layar secara lokal
       try {
         const saved = localStorage.getItem('hut_ri_messages');
         let messages = saved ? JSON.parse(saved) : [...defaultMessages];
@@ -286,6 +325,21 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('LocalStorage error:', err);
       }
 
+      // Kirim ke Google Sheets dengan mode no-cors jika URL diisi
+      if (GOOGLE_SHEET_SCRIPT_URL) {
+        try {
+          await fetch(GOOGLE_SHEET_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(newMessage)
+          });
+          console.log('Kirim ke Google Sheets berhasil dikirim');
+        } catch (err) {
+          console.warn('Gagal mengirim ke Google Sheets:', err);
+        }
+      }
+
       guestbookForm.reset();
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -293,11 +347,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       triggerConfetti();
-      alert('Terima kasih! Doa & ucapan Kemerdekaan Anda telah berhasil terkirim dan disiarkan secara global! 🇮🇩');
+      alert('Terima kasih! Doa & ucapan Kemerdekaan Anda telah berhasil dikirim! 🇮🇩');
 
       // Reload dari server jika ada Google Sheets
       if (GOOGLE_SHEET_SCRIPT_URL) {
-        setTimeout(loadMessages, 1500);
+        setTimeout(loadMessages, 2000);
       }
     });
   }
@@ -473,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
           y: y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          color: colors[Math.floor(Math.random() * colors.length)],
+          color: colors[Math.color || Math.random() * colors.length],
           alpha: 1,
           size: Math.random() * 3 + 2
         });
