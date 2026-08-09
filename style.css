@@ -4,6 +4,8 @@
    ========================================================================== */
 
 :root {
+  color-scheme: only light;
+  supported-color-schemes: only light;
   --primary-red: #E11D48;
   --deep-red: #9F1239;
   --dark-red: #4C0519;
@@ -33,6 +35,7 @@ html {
   font-family: var(--font-body);
   background-color: #0d0003;
   color: var(--text-dark);
+  color-scheme: only light;
 }
 
 body {
@@ -128,7 +131,12 @@ body {
 }
 
 .seg.white {
-  background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 100%);
+  background: #FFFFFE !important;
+  background: linear-gradient(135deg, #FFFFFE 0%, #F1F5F9 100%) !important;
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 .seg-tail {
@@ -162,7 +170,11 @@ body {
 }
 
 .bunting-flag:nth-child(even) {
-  border-top-color: #FFFFFF;
+  border-top-color: #FFFFFE !important;
+  forced-color-adjust: none !important;
+  -webkit-forced-color-adjust: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
   animation-delay: 0.4s;
 }
 
