@@ -183,42 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const guestbookForm = document.getElementById('guestbook-form');
 
   const defaultMessages = [
-    {
-      name: 'Budi Rahardjo',
-      city: 'Jakarta Pusat',
-      message: 'Selamat HUT RI ke-81! Semoga Indonesia semakin maju, sejahtera, dan bersatu dalam keberagaman! Merdeka! 🇮🇩',
-      time: 'Baru saja'
-    },
-    {
-      name: 'Ratna Sari',
-      city: 'Bandung, Jawa Barat',
-      message: 'Tantangan memang tidak mudah, tapi dengan gotong royong dan tekad baja, kita yakin Indonesia akan tumbuh lebih solid dan makmur!',
-      time: '12 menit yang lalu'
-    },
-    {
-      name: 'Andi Pratama',
-      city: 'Makassar, Sulsel',
-      message: 'Kemerdekaan bukan hanya warisan, tapi amanah untuk kita perjuangkan bersama demi keadilan seluruh rakyat Indonesia!',
-      time: '45 menit yang lalu'
-    },
-    {
-      name: 'Siti Aminah',
-      city: 'Surabaya, Jawa Timur',
-      message: 'Dirgahayu Republik Indonesia ke-81! Nusantara Baru, Indonesia Maju! Salam Kemerdekaan dari Jatim.',
-      time: '1 jam yang lalu'
-    },
-    {
-      name: 'Maria Latuconsina',
-      city: 'Ambon, Maluku',
-      message: 'Persatuan adalah kekuatan terbesar kita. Mari kita teruskan semangat Kemerdekaan 1945 untuk masa depan bangsa yang gemilang!',
-      time: '2 jam yang lalu'
-    },
-    {
-      name: 'Made Astawa',
-      city: 'Denpasar, Bali',
-      message: 'Semoga semangat para pahlawan selalu menjiwai generasi muda Indonesia untuk terus berkarya bagi ibu pertiwi!',
-      time: '3 jam yang lalu'
-    }
+  
   ];
 
   async function loadMessages() {
